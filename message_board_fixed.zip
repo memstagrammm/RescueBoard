@@ -1,21 +1,4 @@
-#!/usr/bin/env bash
-# name=commit_by_topdirs.sh
+unzip message_board_fixed.zip
+cd message_board-master
 
-set -e
-# распаковали и находимся в корне message_board-master
-git init
-git config user.name "Your Name"
-git config user.email "you@example.com"
 
-# сначала пустой базовый коммит (опционально)
-git commit --allow-empty -m "Initialize repo"
-
-# Для каждого топ-уровневого каталога/файла: добавить и закоммитить
-for entry in * .[^.]*; do
-  # пропустить .git если случайно есть
-  [ "$entry" = ".git" ] && continue
-  if [ -e "$entry" ]; then
-    git add "$entry"
-    git commit -m "Add $entry"
-  fi
-done
