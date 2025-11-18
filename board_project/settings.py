@@ -16,7 +16,9 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # Основной домен Render
 ALLOWED_HOSTS = [
-    '*'
+    "rescueboard.onrender.com",
+    "localhost",
+    "127.0.0.1",
 ]
 
 # Если хочешь — можно включить wildcard (*)
