@@ -94,4 +94,4 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-PAGE_DEFAULT = 1
+PAGE_DEFAULT = 3
