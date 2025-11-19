@@ -116,3 +116,32 @@ def kandinsky_query(text: str = 'пустота', dir_='./', file_='image.jpg') 
     except Exception as err:
         file_name = f'Error: {err.args}'
     return file_name
+
+def read_pade_count(request: HttpRequest) -> int:
+    """
+    Возвращает количество объявлений на страницу (int).
+    """
+    cnt = request.GET.get("cnt")
+
+    # Неавторизованный пользователь — просто дефолт
+    if not request.user.is_authenticated:
+        return int(settings.PAGE_DEFAULT)
+
+    # Если cnt не передан — берём из Preferences
+    if cnt is None or cnt == "" or cnt == "0":
+        try:
+            cnt = Preferences.objects.get(user=request.user).page_num
+        except Preferences.DoesNotExist:
+            cnt = settings.PAGE_DEFAULT
+            Preferences.objects.create(user=request.user, page_num=cnt)
+        return int(cnt)
+
+    # Если cnt передан — обновляем Preferences
+    try:
+        cnt_int = int(cnt)
+        Preferences.objects.filter(user=request.user).update(page_num=cnt_int)
+        return cnt_int
+    except Exception as er:
+        logging.error(f"Ошибка: {er}")
+        return int(settings.PAGE_DEFAULT)
+
