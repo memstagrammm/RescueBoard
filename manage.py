@@ -1,13 +1,6 @@
-"""Django's command-line utility for administrative tasks."""
-import logging
+#!/usr/bin/env python
 import os
 import sys
-
-logging.basicConfig(
-        filename=os.path.join(DATA_DIR, 'board_message.log'), filemode='a', encoding='utf-8',
-        format='%(asctime)s | %(levelname)s | %(name)s | %(message)s',
-        level=logging.INFO)
-
 
 def main():
     """Run administrative tasks."""
@@ -21,7 +14,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()
